@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["matches","Checks events by patterns in their error messages."],["should_filter","Filters events by patterns in their error messages."]]};

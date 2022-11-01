@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["matches","Checks if the event is part of the blacklisted client IP ranges."],["should_filter","Filters events by blacklisted client IP ranges."]]};

@@ -397,7 +397,7 @@
     </span>InvalidWildcard,
 
     <span class="attribute">#[fail(display = <span class="string">&quot;invalid selector: {}&quot;</span>, _0)]
-    </span>ParseError(Error&lt;Rule&gt;),
+    </span>ParseError(Box&lt;Error&lt;Rule&gt;&gt;),
 
     <span class="attribute">#[fail(display = <span class="string">&quot;invalid selector: invalid index&quot;</span>)]
     </span>InvalidIndex,
@@ -602,7 +602,7 @@
 
         handle_selector(
             SelectorParser::parse(Rule::RootSelector, s)
-                .map_err(InvalidSelectorError::ParseError)<span class="question-mark">?
+                .map_err(|e| InvalidSelectorError::ParseError(Box::new(e)))<span class="question-mark">?
                 </span>.next()
                 .unwrap()
                 .into_inner()

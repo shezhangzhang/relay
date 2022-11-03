@@ -2326,6 +2326,8 @@
 <span id="2324">2324</span>
 <span id="2325">2325</span>
 <span id="2326">2326</span>
+<span id="2327">2327</span>
+<span id="2328">2328</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::hash_map::DefaultHasher;
 <span class="kw">use </span>std::hash::{Hash, Hasher};
 <span class="kw">use </span>std::mem;
@@ -2810,12 +2812,14 @@
 
     <span class="kw">let </span>server_name = std::mem::take(<span class="kw-2">&amp;mut </span>event.server_name);
     <span class="kw">if </span>server_name.value().is_some() {
-        tags.insert(<span class="string">&quot;server_name&quot;</span>.to_string(), server_name);
+        <span class="attribute">#[allow(clippy::unnecessary_to_owned)]
+        </span>tags.insert(<span class="string">&quot;server_name&quot;</span>.to_string(), server_name);
     }
 
     <span class="kw">let </span>site = std::mem::take(<span class="kw-2">&amp;mut </span>event.site);
     <span class="kw">if </span>site.value().is_some() {
-        tags.insert(<span class="string">&quot;site&quot;</span>.to_string(), site);
+        <span class="attribute">#[allow(clippy::unnecessary_to_owned)]
+        </span>tags.insert(<span class="string">&quot;site&quot;</span>.to_string(), site);
     }
 
     <span class="prelude-val">Ok</span>(())

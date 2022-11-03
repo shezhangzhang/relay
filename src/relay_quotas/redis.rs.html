@@ -967,7 +967,7 @@
                 // increment any keys, as one quota has reached capacity (this is how regular quotas
                 // behave as well).
                 </span><span class="kw">let </span>retry_after = <span class="self">self</span>.retry_after(REJECT_ALL_SECS);
-                rate_limits.add(RateLimit::from_quota(quota, <span class="kw-2">&amp;*</span>item_scoping, retry_after));
+                rate_limits.add(RateLimit::from_quota(quota, <span class="kw-2">&amp;</span>item_scoping, retry_after));
             } <span class="kw">else if let </span><span class="prelude-val">Some</span>(quota) = RedisQuota::new(quota, item_scoping, timestamp) {
                 <span class="comment">// Remaining quotas are expected to be trackable in Redis.
                 </span><span class="kw">let </span>key = quota.key();
@@ -1007,7 +1007,7 @@
         <span class="kw">for </span>(quota, is_rejected) <span class="kw">in </span>tracked_quotas.iter().zip(rejections) {
             <span class="kw">if </span>is_rejected {
                 <span class="kw">let </span>retry_after = <span class="self">self</span>.retry_after((quota.expiry() - timestamp).as_secs());
-                rate_limits.add(RateLimit::from_quota(quota, <span class="kw-2">&amp;*</span>item_scoping, retry_after));
+                rate_limits.add(RateLimit::from_quota(quota, <span class="kw-2">&amp;</span>item_scoping, retry_after));
             }
         }
 
@@ -1428,7 +1428,7 @@
     }
 
     <span class="attribute">#[test]
-    #[allow(clippy::blacklisted_name, clippy::let_unit_value)]
+    #[allow(clippy::disallowed_names, clippy::let_unit_value)]
     </span><span class="kw">fn </span>test_is_rate_limited_script() {
         <span class="kw">let </span>now = SystemTime::now()
             .duration_since(UNIX_EPOCH)

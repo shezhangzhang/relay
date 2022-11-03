@@ -217,7 +217,7 @@
             <span class="kw">let </span>fut = compat::send(upstream.clone(), IsNetworkOutage);
             tokio::spawn(<span class="kw">async move </span>{
                 <span class="kw">if let </span><span class="prelude-val">Ok</span>(is_outage) = fut.<span class="kw">await </span>{
-                    <span class="macro">metric!</span>(gauge(RelayGauges::NetworkOutage) = <span class="kw">if </span>is_outage { <span class="number">1 </span>} <span class="kw">else </span>{ <span class="number">0 </span>});
+                    <span class="macro">metric!</span>(gauge(RelayGauges::NetworkOutage) = u64::from(is_outage));
                 }
             });
         }

@@ -1140,7 +1140,7 @@
         <span class="kw">for </span>quota <span class="kw">in </span>quotas {
             <span class="kw">if </span>quota.limit == <span class="prelude-val">Some</span>(<span class="number">0</span>) &amp;&amp; quota.matches(scoping) {
                 <span class="kw">let </span>retry_after = RetryAfter::from_secs(REJECT_ALL_SECS);
-                applied_limits.add(RateLimit::from_quota(quota, <span class="kw-2">&amp;*</span>scoping, retry_after));
+                applied_limits.add(RateLimit::from_quota(quota, <span class="kw-2">&amp;</span>scoping, retry_after));
             }
         }
 

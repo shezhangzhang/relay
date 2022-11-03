@@ -565,7 +565,7 @@
     <span class="comment">// if we have a &quot;*&quot; (Any) option, anything matches so don&#39;t bother going forward
     </span><span class="kw">if </span>origins
         .iter()
-        .any(|o| o.scheme == <span class="prelude-val">None </span>&amp;&amp; o.port == <span class="prelude-val">None </span>&amp;&amp; o.domain == <span class="prelude-val">None</span>)
+        .any(|o| o.scheme.is_none() &amp;&amp; o.port.is_none() &amp;&amp; o.domain.is_none())
     {
         <span class="kw">return </span><span class="bool-val">true</span>;
     }
@@ -574,13 +574,13 @@
         <span class="kw">let </span>url = SchemeDomainPort::from(url);
 
         <span class="kw">for </span>origin <span class="kw">in </span>origins {
-            <span class="kw">if </span>origin.scheme != <span class="prelude-val">None </span>&amp;&amp; url.scheme != origin.scheme {
+            <span class="kw">if </span>origin.scheme.is_some() &amp;&amp; url.scheme != origin.scheme {
                 <span class="kw">continue</span>; <span class="comment">// scheme not matched
             </span>}
-            <span class="kw">if </span>origin.port != <span class="prelude-val">None </span>&amp;&amp; url.port != origin.port {
+            <span class="kw">if </span>origin.port.is_some() &amp;&amp; url.port != origin.port {
                 <span class="kw">continue</span>; <span class="comment">// port not matched
             </span>}
-            <span class="kw">if </span>origin.domain != <span class="prelude-val">None </span>&amp;&amp; url.domain != origin.domain {
+            <span class="kw">if </span>origin.domain.is_some() &amp;&amp; url.domain != origin.domain {
                 <span class="comment">// no direct match for domain, look for  partial patterns (e.g. &quot;*.domain.com&quot;)
                 </span><span class="kw">if let </span>(<span class="prelude-val">Some</span>(origin_domain), <span class="prelude-val">Some</span>(domain)) = (<span class="kw-2">&amp;</span>origin.domain, <span class="kw-2">&amp;</span>url.domain) {
                     <span class="kw">if </span>origin_domain.starts_with(<span class="string">&#39;*&#39;</span>)

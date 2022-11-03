@@ -417,10 +417,6 @@
 <span id="415">415</span>
 <span id="416">416</span>
 <span id="417">417</span>
-<span id="418">418</span>
-<span id="419">419</span>
-<span id="420">420</span>
-<span id="421">421</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::time::SystemTime;
 
 <span class="kw">use </span>chrono::{DateTime, Utc};
@@ -591,11 +587,7 @@
     }
 
     <span class="kw">fn </span>total_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
-        <span class="kw">if </span><span class="self">self</span>.init {
-            <span class="number">1
-        </span>} <span class="kw">else </span>{
-            <span class="number">0
-        </span>}
+        u32::from(<span class="self">self</span>.init)
     }
 
     <span class="kw">fn </span>abnormal_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {

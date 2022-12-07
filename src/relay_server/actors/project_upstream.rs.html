@@ -381,11 +381,6 @@
 <span id="379">379</span>
 <span id="380">380</span>
 <span id="381">381</span>
-<span id="382">382</span>
-<span id="383">383</span>
-<span id="384">384</span>
-<span id="385">385</span>
-<span id="386">386</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::borrow::Cow;
 <span class="kw">use </span>std::collections::{BTreeMap, HashMap};
 <span class="kw">use </span>std::sync::Arc;
@@ -404,7 +399,7 @@
 <span class="kw">use </span>relay_statsd::metric;
 
 <span class="kw">use </span><span class="kw">crate</span>::actors::project::ProjectState;
-<span class="kw">use </span><span class="kw">crate</span>::actors::project_cache::{FetchProjectState, ProjectError, ProjectStateResponse};
+<span class="kw">use </span><span class="kw">crate</span>::actors::project_cache::{FetchProjectState, ProjectError};
 <span class="kw">use </span><span class="kw">crate</span>::actors::upstream::{RequestPriority, SendQuery, UpstreamQuery, UpstreamRelay};
 <span class="kw">use </span><span class="kw">crate</span>::statsd::{RelayCounters, RelayHistograms, RelayTimers};
 <span class="kw">use </span><span class="kw">crate</span>::utils::{<span class="self">self</span>, ErrorBoundary};
@@ -494,7 +489,8 @@
     }
 }
 
-<span class="kw">pub struct </span>UpstreamProjectSource {
+<span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>UpstreamProjectSource {
     backoff: RetryBackoff,
     config: Arc&lt;Config&gt;,
     state_channels: HashMap&lt;ProjectKey, ProjectStateChannel&gt;,
@@ -645,11 +641,10 @@
                                     .remove(<span class="kw-2">&amp;</span>key)
                                     .unwrap_or(ErrorBoundary::Ok(<span class="prelude-val">None</span>))
                                     .unwrap_or_else(|error| {
-                                        <span class="kw">let </span>e = LogError(error);
                                         <span class="macro">relay_log::error!</span>(
                                             <span class="string">&quot;error fetching project state {}: {}&quot;</span>,
                                             key,
-                                            e
+                                            LogError(error)
                                         );
                                         <span class="prelude-val">Some</span>(ProjectState::err())
                                     })
@@ -718,7 +713,7 @@
         <span class="comment">// Set the mailbox size to the size of the eveenvelopent buffer. This is a rough estimate
         // but should ensure that we&#39;re not dropping messages if the main arbiter running this actor
         // gets hammered a bit.
-        </span><span class="kw">let </span>mailbox_size = <span class="self">self</span>.config.envelope_buffer_size() <span class="kw">as </span>usize;
+        </span><span class="kw">let </span>mailbox_size = <span class="self">self</span>.config.envelope_buffer_size();
         context.set_mailbox_capacity(mailbox_size);
 
         <span class="macro">relay_log::info!</span>(<span class="string">&quot;project upstream cache started&quot;</span>);
@@ -730,7 +725,7 @@
 }
 
 <span class="kw">impl </span>Handler&lt;FetchProjectState&gt; <span class="kw">for </span>UpstreamProjectSource {
-    <span class="kw">type </span><span class="prelude-ty">Result </span>= ResponseFuture&lt;ProjectStateResponse, ()&gt;;
+    <span class="kw">type </span><span class="prelude-ty">Result </span>= ResponseFuture&lt;Arc&lt;ProjectState&gt;, ()&gt;;
 
     <span class="kw">fn </span>handle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, message: FetchProjectState, context: <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Context) -&gt; <span class="self">Self</span>::Result {
         <span class="kw">if </span>!<span class="self">self</span>.backoff.started() {
@@ -764,12 +759,7 @@
             channel.no_cache();
         }
 
-        Box::new(
-            channel
-                .receiver()
-                .map_err(|<span class="kw">_</span>| ())
-                .map(|x| ProjectStateResponse::new((<span class="kw-2">*</span>x).clone())),
-        )
+        Box::new(channel.receiver().map_err(|<span class="kw">_</span>| ()).map(|x| (<span class="kw-2">*</span>x).clone()))
     }
 }
 </code></pre></div>

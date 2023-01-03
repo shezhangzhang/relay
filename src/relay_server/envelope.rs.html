@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-server/src/envelope.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>envelope.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../relay_server/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../relay_server/index.html"><div class="logo-container">
-                    <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../relay_server/index.html">
-                        <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-server/src/envelope.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>envelope.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../relay_server/index.html">
+                        <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1641,6 +1640,9 @@
 <span id="1639">1639</span>
 <span id="1640">1640</span>
 <span id="1641">1641</span>
+<span id="1642">1642</span>
+<span id="1643">1643</span>
+<span id="1644">1644</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Implementation of event envelopes.
 //!
 //! Envelopes are containers for payloads related to Sentry events. Similar to multipart form data
@@ -2453,8 +2455,8 @@
 
 <span class="kw">impl </span>Envelope {
     <span class="doccomment">/// Creates an envelope from request information.
-    </span><span class="kw">pub fn </span>from_request(event_id: <span class="prelude-ty">Option</span>&lt;EventId&gt;, meta: RequestMeta) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>from_request(event_id: <span class="prelude-ty">Option</span>&lt;EventId&gt;, meta: RequestMeta) -&gt; Box&lt;<span class="self">Self</span>&gt; {
+        Box::new(<span class="self">Self </span>{
             headers: EnvelopeHeaders {
                 event_id,
                 meta,
@@ -2464,16 +2466,16 @@
                 trace: <span class="prelude-val">None</span>,
             },
             items: Items::new(),
-        }
+        })
     }
 
     <span class="doccomment">/// Parses an envelope from bytes.
     </span><span class="attribute">#[allow(dead_code)]
-    </span><span class="kw">pub fn </span>parse_bytes(bytes: Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, EnvelopeError&gt; {
+    </span><span class="kw">pub fn </span>parse_bytes(bytes: Bytes) -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;<span class="self">Self</span>&gt;, EnvelopeError&gt; {
         <span class="kw">let </span>(headers, offset) = <span class="self">Self</span>::parse_headers(<span class="kw-2">&amp;</span>bytes)<span class="question-mark">?</span>;
         <span class="kw">let </span>items = <span class="self">Self</span>::parse_items(<span class="kw-2">&amp;</span>bytes, offset)<span class="question-mark">?</span>;
 
-        <span class="prelude-val">Ok</span>(Envelope { headers, items })
+        <span class="prelude-val">Ok</span>(Box::new(Envelope { headers, items }))
     }
 
     <span class="doccomment">/// Parses an envelope taking into account a request.
@@ -2482,7 +2484,10 @@
     /// request. It validates that request headers are in line with the envelope&#39;s headers.
     ///
     /// If no event id is provided explicitly, one is created on the fly.
-    </span><span class="kw">pub fn </span>parse_request(bytes: Bytes, request_meta: RequestMeta) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, EnvelopeError&gt; {
+    </span><span class="kw">pub fn </span>parse_request(
+        bytes: Bytes,
+        request_meta: RequestMeta,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Box&lt;<span class="self">Self</span>&gt;, EnvelopeError&gt; {
         <span class="kw">let </span>(partial_headers, offset) = <span class="self">Self</span>::parse_headers::&lt;PartialMeta&gt;(<span class="kw-2">&amp;</span>bytes)<span class="question-mark">?</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>headers = partial_headers.complete(request_meta)<span class="question-mark">?</span>;
 
@@ -2492,7 +2497,7 @@
             headers.event_id.get_or_insert_with(EventId::new);
         }
 
-        <span class="prelude-val">Ok</span>(Envelope { headers, items })
+        <span class="prelude-val">Ok</span>(Box::new(Envelope { headers, items }))
     }
 
     <span class="doccomment">/// Returns the number of items in this envelope.
@@ -2639,7 +2644,7 @@
     /// with all items that return `true`. Items that return `false` remain in this envelope.
     ///
     /// The returned envelope assumes the same headers.
-    </span><span class="kw">pub fn </span>split_by&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>f: F) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;
+    </span><span class="kw">pub fn </span>split_by&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>f: F) -&gt; <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="self">Self</span>&gt;&gt;
     <span class="kw">where
         </span>F: FnMut(<span class="kw-2">&amp;</span>Item) -&gt; bool,
     {
@@ -2652,10 +2657,10 @@
         <span class="kw">let </span>(split_items, own_items) = old_items.into_iter().partition(f);
         <span class="self">self</span>.items = own_items;
 
-        <span class="prelude-val">Some</span>(Envelope {
+        <span class="prelude-val">Some</span>(Box::new(Envelope {
             headers: <span class="self">self</span>.headers.clone(),
             items: split_items,
-        })
+        }))
     }
 
     <span class="doccomment">/// Retains only the items specified by the predicate.
@@ -3283,4 +3288,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="relay_server" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="relay_server" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

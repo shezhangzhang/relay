@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-general/src/protocol/session.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>session.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../relay_general/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../relay_general/index.html"><div class="logo-container">
-                    <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../relay_general/index.html">
-                        <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-general/src/protocol/session.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>session.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../relay_general/index.html">
+                        <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -424,6 +423,110 @@
 <span id="422">422</span>
 <span id="423">423</span>
 <span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::fmt;
 <span class="kw">use </span>std::time::SystemTime;
 
@@ -432,6 +535,7 @@
 <span class="kw">use </span>uuid::Uuid;
 
 <span class="kw">use </span><span class="kw">crate</span>::macros::derive_fromstr_and_display;
+<span class="kw">use </span><span class="kw">crate</span>::protocol::utils::null_to_default;
 <span class="kw">use </span><span class="kw">crate</span>::protocol::IpAddr;
 
 <span class="doccomment">/// The type of session event we&#39;re dealing with.
@@ -495,6 +599,42 @@
     SessionStatus::Errored =&gt; <span class="string">&quot;errored&quot;</span>,
 });
 
+<span class="attribute">#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = <span class="string">&quot;snake_case&quot;</span>)]
+</span><span class="kw">pub enum </span>AbnormalMechanism {
+    AnrForeground,
+    AnrBackground,
+    <span class="attribute">#[serde(other)]
+    </span><span class="prelude-val">None</span>,
+}
+
+<span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>ParseAbnormalMechanismError;
+
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>ParseAbnormalMechanismError {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+        <span class="macro">write!</span>(f, <span class="string">&quot;invalid abnormal mechanism&quot;</span>)
+    }
+}
+
+<span class="macro">derive_fromstr_and_display!</span>(AbnormalMechanism, ParseAbnormalMechanismError, {
+    AbnormalMechanism::AnrForeground =&gt; <span class="string">&quot;anr_foreground&quot;</span>,
+    AbnormalMechanism::AnrBackground =&gt; <span class="string">&quot;anr_background&quot;</span>,
+    AbnormalMechanism::None =&gt; <span class="string">&quot;none&quot;</span>,
+});
+
+<span class="kw">impl </span>Default <span class="kw">for </span>AbnormalMechanism {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        AbnormalMechanism::None
+    }
+}
+
+<span class="kw">impl </span>AbnormalMechanism {
+    <span class="kw">fn </span>is_none(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw-2">*</span><span class="self">self </span>== <span class="self">Self</span>::None
+    }
+}
+
 <span class="doccomment">/// Additional attributes for Sessions.
 </span><span class="attribute">#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SessionAttributes {
@@ -544,6 +684,7 @@
     <span class="kw">fn </span>crashed_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
     <span class="kw">fn </span>all_errors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;SessionErrored&gt;;
     <span class="kw">fn </span>final_duration(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, SessionStatus)&gt;;
+    <span class="kw">fn </span>abnormal_mechanism(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; AbnormalMechanism;
 }
 
 <span class="attribute">#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -577,6 +718,13 @@
     <span class="doccomment">/// The session event attributes.
     </span><span class="attribute">#[serde(rename = <span class="string">&quot;attrs&quot;</span>)]
     </span><span class="kw">pub </span>attributes: SessionAttributes,
+    <span class="doccomment">/// The abnormal mechanism.
+    </span><span class="attribute">#[serde(
+        default,
+        deserialize_with = <span class="string">&quot;null_to_default&quot;</span>,
+        skip_serializing_if = <span class="string">&quot;AbnormalMechanism::is_none&quot;
+    </span>)]
+    </span><span class="kw">pub </span>abnormal_mechanism: AbnormalMechanism,
 }
 
 <span class="kw">impl </span>SessionUpdate {
@@ -633,6 +781,10 @@
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>}
+    }
+
+    <span class="kw">fn </span>abnormal_mechanism(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; AbnormalMechanism {
+        <span class="self">self</span>.abnormal_mechanism
     }
 }
 
@@ -697,6 +849,9 @@
             <span class="prelude-val">None
         </span>}
     }
+    <span class="kw">fn </span>abnormal_mechanism(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; AbnormalMechanism {
+        AbnormalMechanism::None
+    }
 }
 
 <span class="attribute">#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -760,6 +915,7 @@
             duration: <span class="prelude-val">None</span>,
             init: <span class="bool-val">false</span>,
             status: SessionStatus::Ok,
+            abnormal_mechanism: AbnormalMechanism::None,
             errors: <span class="number">0</span>,
             attributes: SessionAttributes {
                 release: <span class="string">&quot;sentry-test@1.0.0&quot;</span>.to_owned(),
@@ -820,6 +976,7 @@
             started: <span class="string">&quot;2020-02-07T14:16:00Z&quot;</span>.parse().unwrap(),
             duration: <span class="prelude-val">Some</span>(<span class="number">1947.49</span>),
             status: SessionStatus::Exited,
+            abnormal_mechanism: AbnormalMechanism::None,
             errors: <span class="number">0</span>,
             init: <span class="bool-val">true</span>,
             attributes: SessionAttributes {
@@ -847,6 +1004,56 @@
         <span class="kw">let </span>update = SessionUpdate::parse(json.as_bytes()).unwrap();
         <span class="macro">assert_eq!</span>(update.attributes.ip_address, <span class="prelude-val">Some</span>(IpAddr::auto()));
     }
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_session_abnormal_mechanism() {
+        <span class="kw">let </span>json = <span class="string">r#&quot;{
+    &quot;sid&quot;: &quot;8333339f-5675-4f89-a9a0-1c935255ab58&quot;,
+    &quot;started&quot;: &quot;2020-02-07T14:16:00Z&quot;,
+    &quot;status&quot;: &quot;abnormal&quot;,
+    &quot;abnormal_mechanism&quot;: &quot;anr_background&quot;,
+    &quot;attrs&quot;: {
+    &quot;release&quot;: &quot;sentry-test@1.0.0&quot;,
+    &quot;environment&quot;: &quot;production&quot;
+    }
+    }&quot;#</span>;
+
+        <span class="kw">let </span>update = SessionUpdate::parse(json.as_bytes()).unwrap();
+        <span class="macro">assert_eq!</span>(update.abnormal_mechanism, AbnormalMechanism::AnrBackground);
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_session_invalid_abnormal_mechanism() {
+        <span class="kw">let </span>json = <span class="string">r#&quot;{
+  &quot;sid&quot;: &quot;8333339f-5675-4f89-a9a0-1c935255ab58&quot;,
+  &quot;started&quot;: &quot;2020-02-07T14:16:00Z&quot;,
+  &quot;status&quot;: &quot;abnormal&quot;,
+  &quot;abnormal_mechanism&quot;: &quot;invalid_mechanism&quot;,
+  &quot;attrs&quot;: {
+    &quot;release&quot;: &quot;sentry-test@1.0.0&quot;,
+    &quot;environment&quot;: &quot;production&quot;
+  }
+}&quot;#</span>;
+
+        <span class="kw">let </span>update = SessionUpdate::parse(json.as_bytes()).unwrap();
+        <span class="macro">assert_eq!</span>(update.abnormal_mechanism, AbnormalMechanism::None);
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_session_null_abnormal_mechanism() {
+        <span class="kw">let </span>json = <span class="string">r#&quot;{
+  &quot;sid&quot;: &quot;8333339f-5675-4f89-a9a0-1c935255ab58&quot;,
+  &quot;started&quot;: &quot;2020-02-07T14:16:00Z&quot;,
+  &quot;status&quot;: &quot;abnormal&quot;,
+  &quot;abnormal_mechanism&quot;: null,
+  &quot;attrs&quot;: {
+    &quot;release&quot;: &quot;sentry-test@1.0.0&quot;,
+    &quot;environment&quot;: &quot;production&quot;
+  }
+}&quot;#</span>;
+
+        <span class="kw">let </span>update = SessionUpdate::parse(json.as_bytes()).unwrap();
+        <span class="macro">assert_eq!</span>(update.abnormal_mechanism, AbnormalMechanism::None);
+    }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="relay_general" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="relay_general" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

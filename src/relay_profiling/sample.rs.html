@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-profiling/src/sample.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sample.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../relay_profiling/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../relay_profiling/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../relay_profiling/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-profiling/src/sample.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sample.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../relay_profiling/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -437,6 +437,58 @@
 <span id="437">437</span>
 <span id="438">438</span>
 <span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>chrono::{DateTime, Utc};
@@ -481,7 +533,7 @@
 
 <span class="attribute">#[derive(Debug, Serialize, Deserialize, Clone)]
 </span><span class="kw">struct </span>Sample {
-    stack_id: u32,
+    stack_id: usize,
     <span class="attribute">#[serde(deserialize_with = <span class="string">&quot;deserialize_number_from_string&quot;</span>)]
     </span>thread_id: u64,
     <span class="attribute">#[serde(deserialize_with = <span class="string">&quot;deserialize_number_from_string&quot;</span>)]
@@ -508,7 +560,7 @@
 <span class="attribute">#[derive(Debug, Serialize, Deserialize, Clone)]
 </span><span class="kw">struct </span>Profile {
     samples: Vec&lt;Sample&gt;,
-    stacks: Vec&lt;Vec&lt;u32&gt;&gt;,
+    stacks: Vec&lt;Vec&lt;usize&gt;&gt;,
     frames: Vec&lt;Frame&gt;,
 
     <span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
@@ -597,6 +649,8 @@
 
     <span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;Vec::is_empty&quot;</span>)]
     </span>transactions: Vec&lt;TransactionMetadata&gt;,
+    <span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+    </span>transaction: <span class="prelude-ty">Option</span>&lt;TransactionMetadata&gt;,
 
     <span class="attribute">#[serde(default, skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
     </span>measurements: <span class="prelude-ty">Option</span>&lt;HashMap&lt;String, Measurement&gt;&gt;,
@@ -617,6 +671,26 @@
             <span class="kw">_ </span>=&gt; <span class="bool-val">true</span>,
         }
     }
+
+    <span class="kw">fn </span>check_samples(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">for </span>sample <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.profile.samples {
+            <span class="kw">if </span><span class="self">self</span>.profile.stacks.get(sample.stack_id).is_none() {
+                <span class="kw">return </span><span class="bool-val">false</span>;
+            }
+        }
+        <span class="bool-val">true
+    </span>}
+
+    <span class="kw">fn </span>check_stacks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">for </span>stack <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.profile.stacks {
+            <span class="kw">for </span>frame_id <span class="kw">in </span>stack {
+                <span class="kw">if </span><span class="self">self</span>.profile.frames.get(<span class="kw-2">*</span>frame_id).is_none() {
+                    <span class="kw">return </span><span class="bool-val">false</span>;
+                }
+            }
+        }
+        <span class="bool-val">true
+    </span>}
 
     <span class="doccomment">/// Removes a sample when it&#39;s the only sample on its thread
     </span><span class="kw">fn </span>remove_single_samples_per_thread(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
@@ -642,68 +716,52 @@
     }
 }
 
-<span class="kw">pub fn </span>expand_sample_profile(payload: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Vec&lt;u8&gt;&gt;, ProfileError&gt; {
-    <span class="kw">let </span>profile = parse_profile(payload)<span class="question-mark">?</span>;
+<span class="kw">fn </span>parse_profile(payload: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;SampleProfile, ProfileError&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>profile: SampleProfile =
+        serde_json::from_slice(payload).map_err(ProfileError::InvalidJson)<span class="question-mark">?</span>;
 
     <span class="kw">if </span>!profile.valid() {
         <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::MissingProfileMetadata);
     }
 
-    <span class="kw">let </span><span class="kw-2">mut </span>items: Vec&lt;Vec&lt;u8&gt;&gt; = Vec::new();
-
-    <span class="comment">// As we&#39;re getting one profile for multiple transactions and our backend doesn&#39;t support this,
-    // we need to duplicate the profile to have one profile for one transaction, filter the samples
-    // to match the transaction bounds and generate a new profile ID.
-    </span><span class="kw">for </span>transaction <span class="kw">in </span><span class="kw-2">&amp;</span>profile.transactions {
-        <span class="kw">let </span><span class="kw-2">mut </span>new_profile = profile.clone();
-
-        new_profile.event_id = EventId::new();
-        new_profile.transactions.clear();
-        new_profile.transactions.push(transaction.clone());
-
-        new_profile.profile.samples.retain_mut(|sample| {
-            <span class="kw">if </span>transaction.relative_start_ns &lt;= sample.elapsed_since_start_ns
-                &amp;&amp; sample.elapsed_since_start_ns &lt;= transaction.relative_end_ns
-            {
-                sample.elapsed_since_start_ns -= transaction.relative_start_ns;
-                <span class="bool-val">true
-            </span>} <span class="kw">else </span>{
-                <span class="bool-val">false
-            </span>}
-        });
-
-        <span class="kw">match </span>serde_json::to_vec(<span class="kw-2">&amp;</span>new_profile) {
-            <span class="prelude-val">Ok</span>(payload) =&gt; items.push(payload),
-            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::CannotSerializePayload);
-            }
-        };
-    }
-
-    <span class="prelude-val">Ok</span>(items)
-}
-
-<span class="kw">fn </span>parse_profile(payload: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;SampleProfile, ProfileError&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>profile: SampleProfile =
-        serde_json::from_slice(payload).map_err(ProfileError::InvalidJson)<span class="question-mark">?</span>;
-
-    profile
-        .transactions
-        .retain(|transaction| transaction.valid());
-
-    <span class="kw">if </span>profile.transactions.is_empty() {
+    <span class="kw">let </span><span class="prelude-val">Some</span>(transaction) = profile.transactions.get(<span class="number">0</span>).cloned() <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::NoTransactionAssociated);
+    };
+
+    <span class="kw">if </span>!transaction.valid() {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::InvalidTransactionMetadata);
     }
 
-    profile.remove_single_samples_per_thread();
+    <span class="comment">// Clean samples before running the checks.
+    </span>profile.remove_single_samples_per_thread();
+    profile.profile.samples.retain_mut(|sample| {
+        (transaction.relative_start_ns..transaction.relative_end_ns)
+            .contains(<span class="kw-2">&amp;</span>sample.elapsed_since_start_ns)
+    });
 
     <span class="kw">if </span>profile.profile.samples.is_empty() {
         <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::NotEnoughSamples);
     }
 
+    <span class="kw">if </span>!profile.check_samples() {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::MalformedSamples);
+    }
+
+    <span class="kw">if </span>!profile.check_stacks() {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(ProfileError::MalformedStacks);
+    }
+
+    <span class="comment">// truncate to one transaction for compatibility reasons
+    </span>profile.transactions.truncate(<span class="number">1</span>);
+    profile.transaction = <span class="prelude-val">Some</span>(transaction);
     profile.strip_pointer_authentication_code();
 
     <span class="prelude-val">Ok</span>(profile)
+}
+
+<span class="kw">pub fn </span>parse_sample_profile(payload: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;, ProfileError&gt; {
+    <span class="kw">let </span>profile = parse_profile(payload)<span class="question-mark">?</span>;
+    serde_json::to_vec(<span class="kw-2">&amp;</span>profile).map_err(|<span class="kw">_</span>| ProfileError::CannotSerializePayload)
 }
 
 <span class="attribute">#[cfg(test)]
@@ -722,7 +780,7 @@
     <span class="attribute">#[test]
     </span><span class="kw">fn </span>test_expand() {
         <span class="kw">let </span>payload = <span class="macro">include_bytes!</span>(<span class="string">&quot;../tests/fixtures/profiles/sample/roundtrip.json&quot;</span>);
-        <span class="kw">let </span>profile = expand_sample_profile(payload);
+        <span class="kw">let </span>profile = parse_sample_profile(payload);
         <span class="macro">assert!</span>(profile.is_ok());
     }
 
@@ -730,14 +788,14 @@
     </span><span class="kw">fn </span>test_parse_multiple_transactions() {
         <span class="kw">let </span>payload =
             <span class="macro">include_bytes!</span>(<span class="string">&quot;../tests/fixtures/profiles/sample/multiple_transactions.json&quot;</span>);
-        <span class="kw">let </span>data = parse_profile(payload);
+        <span class="kw">let </span>data = parse_sample_profile(payload);
         <span class="macro">assert!</span>(data.is_ok());
     }
 
     <span class="attribute">#[test]
     </span><span class="kw">fn </span>test_no_transaction() {
         <span class="kw">let </span>payload = <span class="macro">include_bytes!</span>(<span class="string">&quot;../tests/fixtures/profiles/sample/no_transaction.json&quot;</span>);
-        <span class="kw">let </span>data = parse_profile(payload);
+        <span class="kw">let </span>data = parse_sample_profile(payload);
         <span class="macro">assert!</span>(data.is_err());
     }
 
@@ -769,6 +827,7 @@
                 frames: Vec::new(),
                 thread_metadata: <span class="prelude-val">Some</span>(HashMap::new()),
             },
+            transaction: Option::None,
             transactions: Vec::new(),
             release: <span class="string">&quot;1.0 (9999)&quot;</span>.to_string(),
             measurements: <span class="prelude-val">None</span>,
@@ -849,26 +908,71 @@
     }
 
     <span class="attribute">#[test]
-    </span><span class="kw">fn </span>test_expand_multiple_transactions() {
+    </span><span class="kw">fn </span>test_expand_with_all_samples_outside_transaction() {
+        <span class="kw">let </span><span class="kw-2">mut </span>profile = generate_profile();
+
+        profile.profile.frames.push(Frame {
+            abs_path: <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.to_string()),
+            colno: <span class="prelude-val">Some</span>(<span class="number">0</span>),
+            filename: <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.to_string()),
+            function: <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.to_string()),
+            in_app: <span class="prelude-val">Some</span>(<span class="bool-val">false</span>),
+            instruction_addr: <span class="prelude-val">Some</span>(Addr(<span class="number">0</span>)),
+            lineno: <span class="prelude-val">Some</span>(<span class="number">0</span>),
+            module: <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.to_string()),
+        });
+        profile.transactions.push(TransactionMetadata {
+            active_thread_id: <span class="number">1</span>,
+            id: EventId::new(),
+            name: <span class="string">&quot;blah&quot;</span>.to_string(),
+            relative_cpu_end_ms: <span class="number">0</span>,
+            relative_cpu_start_ms: <span class="number">0</span>,
+            relative_end_ns: <span class="number">100</span>,
+            relative_start_ns: <span class="number">50</span>,
+            trace_id: EventId::new(),
+        });
+        profile.profile.stacks.push(<span class="macro">vec!</span>[<span class="number">0</span>]);
+        profile.profile.samples.extend(<span class="macro">vec!</span>[
+            Sample {
+                stack_id: <span class="number">0</span>,
+                queue_address: <span class="prelude-val">Some</span>(<span class="string">&quot;0xdeadbeef&quot;</span>.to_string()),
+                elapsed_since_start_ns: <span class="number">10</span>,
+                thread_id: <span class="number">1</span>,
+            },
+            Sample {
+                stack_id: <span class="number">0</span>,
+                queue_address: <span class="prelude-val">Some</span>(<span class="string">&quot;0xdeadbeef&quot;</span>.to_string()),
+                elapsed_since_start_ns: <span class="number">20</span>,
+                thread_id: <span class="number">1</span>,
+            },
+            Sample {
+                stack_id: <span class="number">0</span>,
+                queue_address: <span class="prelude-val">Some</span>(<span class="string">&quot;0xdeadbeef&quot;</span>.to_string()),
+                elapsed_since_start_ns: <span class="number">30</span>,
+                thread_id: <span class="number">1</span>,
+            },
+            Sample {
+                stack_id: <span class="number">0</span>,
+                queue_address: <span class="prelude-val">Some</span>(<span class="string">&quot;0xdeadbeef&quot;</span>.to_string()),
+                elapsed_since_start_ns: <span class="number">40</span>,
+                thread_id: <span class="number">1</span>,
+            },
+        ]);
+
+        <span class="kw">let </span>payload = serde_json::to_vec(<span class="kw-2">&amp;</span>profile).unwrap();
+        <span class="kw">let </span>data = parse_sample_profile(<span class="kw-2">&amp;</span>payload[..]);
+
+        <span class="macro">assert!</span>(data.is_err());
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_filter_samples_for_transaction() {
         <span class="kw">let </span>payload =
             <span class="macro">include_bytes!</span>(<span class="string">&quot;../tests/fixtures/profiles/sample/multiple_transactions.json&quot;</span>);
-
-        <span class="kw">let </span>data = expand_sample_profile(payload);
-        <span class="macro">assert!</span>(data.is_ok());
-        <span class="macro">assert_eq!</span>(data.as_ref().unwrap().len(), <span class="number">2</span>);
-
-        <span class="kw">let </span>original_profile = <span class="kw">match </span>parse_profile(payload) {
+        <span class="kw">let </span>expanded_profile = <span class="kw">match </span>parse_profile(payload) {
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;cannot parse profile: {:?}&quot;</span>, err),
             <span class="prelude-val">Ok</span>(profile) =&gt; profile,
         };
-        <span class="kw">let </span>expanded_profile = <span class="kw">match </span>parse_profile(<span class="kw-2">&amp;</span>data.as_ref().unwrap()[<span class="number">0</span>][..]) {
-            <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;cannot parse profile: {:?}&quot;</span>, err),
-            <span class="prelude-val">Ok</span>(profile) =&gt; profile,
-        };
-        <span class="macro">assert_eq!</span>(
-            original_profile.transactions[<span class="number">0</span>],
-            expanded_profile.transactions[<span class="number">0</span>]
-        );
         <span class="macro">assert_eq!</span>(expanded_profile.profile.samples.len(), <span class="number">4</span>);
 
         <span class="kw">for </span>sample <span class="kw">in </span><span class="kw-2">&amp;</span>expanded_profile.profile.samples {
@@ -877,4 +981,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="relay_profiling" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="relay_profiling" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>

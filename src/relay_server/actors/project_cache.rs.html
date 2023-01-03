@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-server/src/actors/project_cache.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>project_cache.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../relay_server/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../relay_server/index.html"><div class="logo-container">
-                    <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../relay_server/index.html">
-                        <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `relay-server/src/actors/project_cache.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>project_cache.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../relay_server/index.html">
+                        <img src="https://raw.githubusercontent.com/getsentry/relay/master/artwork/relay-icon.png" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -651,12 +650,18 @@
 <span id="649">649</span>
 <span id="650">650</span>
 <span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
-<span class="kw">use </span>std::time::Instant;
 
 <span class="kw">use </span>actix::{Actor, Message};
 <span class="kw">use </span>actix_web::ResponseError;
 <span class="kw">use </span>tokio::sync::mpsc;
+<span class="kw">use </span>tokio::time::Instant;
 
 <span class="kw">use </span>relay_common::ProjectKey;
 <span class="kw">use </span>relay_config::{Config, RelayMode};
@@ -669,7 +674,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::actors::outcome::DiscardReason;
 <span class="kw">use </span><span class="kw">crate</span>::actors::processor::ProcessEnvelope;
 <span class="kw">use </span><span class="kw">crate</span>::actors::project::{Project, ProjectSender, ProjectState};
-<span class="kw">use </span><span class="kw">crate</span>::actors::project_local::LocalProjectSource;
+<span class="kw">use </span><span class="kw">crate</span>::actors::project_local::{LocalProjectSource, LocalProjectSourceService};
 <span class="kw">use </span><span class="kw">crate</span>::actors::project_upstream::UpstreamProjectSource;
 <span class="kw">use </span><span class="kw">crate</span>::envelope::Envelope;
 <span class="kw">use </span><span class="kw">crate</span>::service::REGISTRY;
@@ -677,7 +682,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::utils::{<span class="self">self</span>, EnvelopeContext, GarbageDisposal};
 
 <span class="attribute">#[cfg(feature = <span class="string">&quot;processing&quot;</span>)]
-</span><span class="kw">use </span>{<span class="kw">crate</span>::actors::project_redis::RedisProjectSource, actix::SyncArbiter, relay_common::clone};
+</span><span class="kw">use </span><span class="kw">crate</span>::actors::project_redis::RedisProjectSource;
 
 <span class="attribute">#[derive(Clone, Debug, thiserror::Error)]
 </span><span class="kw">pub enum </span>ProjectError {
@@ -762,7 +767,7 @@
 /// from the envelope, `None` is returned in place of the envelope.
 </span><span class="attribute">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CheckedEnvelope {
-    <span class="kw">pub </span>envelope: <span class="prelude-ty">Option</span>&lt;(Envelope, EnvelopeContext)&gt;,
+    <span class="kw">pub </span>envelope: <span class="prelude-ty">Option</span>&lt;(Box&lt;Envelope&gt;, EnvelopeContext)&gt;,
     <span class="kw">pub </span>rate_limits: RateLimits,
 }
 
@@ -777,13 +782,13 @@
 ///  - Cached rate limits
 </span><span class="attribute">#[derive(Debug)]
 </span><span class="kw">pub struct </span>CheckEnvelope {
-    envelope: Envelope,
+    envelope: Box&lt;Envelope&gt;,
     context: EnvelopeContext,
 }
 
 <span class="kw">impl </span>CheckEnvelope {
     <span class="doccomment">/// Uses a cached project state and checks the envelope.
-    </span><span class="kw">pub fn </span>new(envelope: Envelope, context: EnvelopeContext) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new(envelope: Box&lt;Envelope&gt;, context: EnvelopeContext) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{ envelope, context }
     }
 }
@@ -800,12 +805,12 @@
 ///
 /// [`EnvelopeProcessor`]: crate::actors::processor::EnvelopeProcessor
 </span><span class="kw">pub struct </span>ValidateEnvelope {
-    envelope: Envelope,
+    envelope: Box&lt;Envelope&gt;,
     context: EnvelopeContext,
 }
 
 <span class="kw">impl </span>ValidateEnvelope {
-    <span class="kw">pub fn </span>new(envelope: Envelope, context: EnvelopeContext) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>new(envelope: Box&lt;Envelope&gt;, context: EnvelopeContext) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{ envelope, context }
     }
 }
@@ -976,27 +981,19 @@
 </span><span class="attribute">#[derive(Clone, Debug)]
 </span><span class="kw">struct </span>ProjectSource {
     config: Arc&lt;Config&gt;,
-    local_source: actix::Addr&lt;LocalProjectSource&gt;,
+    local_source: Addr&lt;LocalProjectSource&gt;,
     upstream_source: actix::Addr&lt;UpstreamProjectSource&gt;,
     <span class="attribute">#[cfg(feature = <span class="string">&quot;processing&quot;</span>)]
-    </span>redis_source: <span class="prelude-ty">Option</span>&lt;actix::Addr&lt;RedisProjectSource&gt;&gt;,
+    </span>redis_source: <span class="prelude-ty">Option</span>&lt;RedisProjectSource&gt;,
 }
 
 <span class="kw">impl </span>ProjectSource {
     <span class="kw">pub fn </span>new(config: Arc&lt;Config&gt;, _redis: <span class="prelude-ty">Option</span>&lt;RedisPool&gt;) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>local_source = LocalProjectSource::new(config.clone()).start();
+        <span class="kw">let </span>local_source = LocalProjectSourceService::new(config.clone()).start();
         <span class="kw">let </span>upstream_source = UpstreamProjectSource::new(config.clone()).start();
 
         <span class="attribute">#[cfg(feature = <span class="string">&quot;processing&quot;</span>)]
-        </span><span class="kw">let </span>redis_source = _redis.map(|pool| {
-            SyncArbiter::start(
-                config.cpu_concurrency(),
-                <span class="macro">clone!</span>(config, || RedisProjectSource::new(
-                    config.clone(),
-                    pool.clone()
-                )),
-            )
-        });
+        </span><span class="kw">let </span>redis_source = _redis.map(|pool| RedisProjectSource::new(config.clone(), pool));
 
         <span class="self">Self </span>{
             config,
@@ -1008,7 +1005,9 @@
     }
 
     <span class="kw">async fn </span>fetch(<span class="self">self</span>, project_key: ProjectKey, no_cache: bool) -&gt; <span class="prelude-ty">Result</span>&lt;Arc&lt;ProjectState&gt;, ()&gt; {
-        <span class="kw">let </span>state_opt = compat::send(<span class="self">self</span>.local_source, FetchOptionalProjectState { project_key })
+        <span class="kw">let </span>state_opt = <span class="self">self
+            </span>.local_source
+            .send(FetchOptionalProjectState { project_key })
             .<span class="kw">await
             </span>.map_err(|<span class="kw">_</span>| ())<span class="question-mark">?</span>;
 
@@ -1025,9 +1024,21 @@
 
         <span class="attribute">#[cfg(feature = <span class="string">&quot;processing&quot;</span>)]
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(redis_source) = <span class="self">self</span>.redis_source {
-            <span class="kw">let </span>state_opt = compat::send(redis_source, FetchOptionalProjectState { project_key })
-                .<span class="kw">await
-                </span>.map_err(|<span class="kw">_</span>| ())<span class="question-mark">?</span>;
+            <span class="kw">let </span>state_fetch_result =
+                tokio::task::spawn_blocking(<span class="kw">move </span>|| redis_source.get_config(project_key))
+                    .<span class="kw">await
+                    </span>.map_err(|<span class="kw">_</span>| ())<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>state_opt = <span class="kw">match </span>state_fetch_result {
+                <span class="prelude-val">Ok</span>(x) =&gt; x.map(ProjectState::sanitize).map(Arc::new),
+                <span class="prelude-val">Err</span>(e) =&gt; {
+                    <span class="macro">relay_log::error!</span>(
+                        <span class="string">&quot;Failed to fetch project from Redis: {}&quot;</span>,
+                        relay_log::LogError(<span class="kw-2">&amp;</span>e)
+                    );
+                    <span class="prelude-val">None
+                </span>}
+            };
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(state) = state_opt {
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(state);
@@ -1303,4 +1314,4 @@
     <span class="kw">type </span><span class="prelude-ty">Result </span>= <span class="prelude-ty">Option</span>&lt;Arc&lt;ProjectState&gt;&gt;;
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="relay_server" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="relay_server" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0 (69f9c33d7 2022-12-12)" ></div></body></html>
